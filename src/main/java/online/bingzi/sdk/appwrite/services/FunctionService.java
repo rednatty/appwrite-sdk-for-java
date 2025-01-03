@@ -1,9 +1,10 @@
 package online.bingzi.sdk.appwrite.services;
 
-import online.bingzi.sdk.appwrite.models.Function;
 import online.bingzi.sdk.appwrite.models.Execution;
+import online.bingzi.sdk.appwrite.models.Function;
 import retrofit2.Call;
 import retrofit2.http.*;
+
 import java.util.List;
 import java.util.Map;
 
@@ -61,22 +62,23 @@ public interface FunctionService {
     Call<Void> deleteFunction(@Path("functionId") String functionId);
 
     /**
-     * 获取函数执行记录列表
+     * 创建函数执行
+     */
+    @FormUrlEncoded
+    @POST("functions/{functionId}/executions")
+    Call<Execution> createExecution(
+            @Path("functionId") String functionId,
+            @Field("data") String data
+    );
+
+    /**
+     * 获取函数执行列表
      */
     @GET("functions/{functionId}/executions")
     Call<List<Execution>> listExecutions(@Path("functionId") String functionId);
 
     /**
-     * 创建函数执行
-     */
-    @POST("functions/{functionId}/executions")
-    Call<Execution> createExecution(
-            @Path("functionId") String functionId,
-            @Body Map<String, Object> data
-    );
-
-    /**
-     * 获取函数执行记录
+     * 获取函数执行信息
      */
     @GET("functions/{functionId}/executions/{executionId}")
     Call<Execution> getExecution(
@@ -85,19 +87,7 @@ public interface FunctionService {
     );
 
     /**
-     * 更新函数代码
-     */
-    @Multipart
-    @PUT("functions/{functionId}/deployments")
-    Call<Function> createDeployment(
-            @Path("functionId") String functionId,
-            @Part okhttp3.MultipartBody.Part code,
-            @Part("entrypoint") String entrypoint,
-            @Part("commands") String commands
-    );
-
-    /**
-     * 更新函数环境变量
+     * 更新函数变量
      */
     @FormUrlEncoded
     @PUT("functions/{functionId}/variables")

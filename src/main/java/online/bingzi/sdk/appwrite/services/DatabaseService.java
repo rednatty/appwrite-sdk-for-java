@@ -80,12 +80,13 @@ public interface DatabaseService {
     /**
      * 创建文档
      */
+    @FormUrlEncoded
     @POST("databases/{databaseId}/collections/{collectionId}/documents")
     Call<Document<Map<String, Object>>> createDocument(
             @Path("databaseId") String databaseId,
             @Path("collectionId") String collectionId,
             @Field("documentId") String documentId,
-            @Body Map<String, Object> data,
+            @Field("data") Map<String, Object> data,
             @Field("permissions") List<String> permissions
     );
 
@@ -111,12 +112,13 @@ public interface DatabaseService {
     /**
      * 更新文档
      */
+    @FormUrlEncoded
     @PATCH("databases/{databaseId}/collections/{collectionId}/documents/{documentId}")
     Call<Document<Map<String, Object>>> updateDocument(
             @Path("databaseId") String databaseId,
             @Path("collectionId") String collectionId,
             @Path("documentId") String documentId,
-            @Body Map<String, Object> data,
+            @Field("data") Map<String, Object> data,
             @Field("permissions") List<String> permissions
     );
 

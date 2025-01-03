@@ -3,34 +3,26 @@ package online.bingzi.sdk.appwrite;
 import okhttp3.mockwebserver.MockWebServer;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.BeforeEach;
-import online.bingzi.sdk.appwrite.config.AppwriteConfig;
 
+import java.io.ByteArrayOutputStream;
+import java.io.FileNotFoundException;
 import java.io.IOException;
+import java.io.InputStream;
 
 /**
- * 基础测试类，提供共享配置
+ * 测试基类
  */
-public abstract class BaseTest {
+public class BaseTest {
     protected MockWebServer mockWebServer;
     protected Client client;
-    protected AppwriteConfig config;
 
     @BeforeEach
-    void setUp() throws IOException {
-        // 设置模拟服务器
+    void setUp() {
         mockWebServer = new MockWebServer();
-        mockWebServer.start();
-
-        // 创建配置
-        config = new AppwriteConfig("test-project", "test-api-key") {
-            @Override
-            public String getEndpoint() {
-                return mockWebServer.url("/v1").toString();
-            }
-        };
-
-        // 创建客户端
-        client = new Client(config);
+        client = new Client()
+                .setEndpoint(mockWebServer.url("/v1/").toString())
+                .setProject("test-project")
+                .setKey("test-key");
     }
 
     @AfterEach
@@ -38,17 +30,19 @@ public abstract class BaseTest {
         mockWebServer.shutdown();
     }
 
-    /**
-     * 从资源文件加载JSON响应
-     *
-     * @param name 资源文件名
-     * @return JSON字符串
-     */
-    protected String loadJsonFromResource(String name) {
-        try {
-            return new String(getClass().getResourceAsStream("/json/" + name + ".json").readAllBytes());
-        } catch (IOException e) {
-            throw new RuntimeException("Failed to load JSON resource: " + name, e);
+    protected String loadJsonFromResource(String filename) throws IOException {
+        InputStream inputStream = getClass().getClassLoader()
+                .getResourceAsStream("json/" + filename + ".json");
+        if (inputStream == null) {
+            throw new FileNotFoundException("Resource not found: " + filename);
         }
+
+        ByteArrayOutputStream result = new ByteArrayOutputStream();
+        byte[] buffer = new byte[1024];
+        int length;
+        while ((length = inputStream.read(buffer)) != -1) {
+            result.write(buffer, 0, length);
+        }
+        return result.toString("UTF-8");
     }
 } 

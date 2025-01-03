@@ -1,20 +1,15 @@
 package online.bingzi.sdk.appwrite.services;
 
 import okhttp3.mockwebserver.MockResponse;
-import okhttp3.mockwebserver.MockWebServer;
 import okhttp3.mockwebserver.RecordedRequest;
-import online.bingzi.sdk.appwrite.models.Team;
+import online.bingzi.sdk.appwrite.BaseTest;
 import online.bingzi.sdk.appwrite.models.Membership;
-import org.junit.jupiter.api.AfterEach;
+import online.bingzi.sdk.appwrite.models.Team;
+import online.bingzi.sdk.appwrite.services.impl.TeamServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 import retrofit2.Response;
-import retrofit2.Retrofit;
-import retrofit2.converter.gson.GsonConverterFactory;
 
-import java.io.IOException;
-import java.nio.file.Files;
-import java.nio.file.Paths;
 import java.util.Arrays;
 import java.util.HashMap;
 import java.util.List;
@@ -22,28 +17,12 @@ import java.util.Map;
 
 import static org.junit.jupiter.api.Assertions.*;
 
-class TeamServiceTest {
-    private MockWebServer mockWebServer;
+class TeamServiceTest extends BaseTest {
     private TeamService teamService;
 
     @BeforeEach
-    void setUp() {
-        mockWebServer = new MockWebServer();
-        Retrofit retrofit = new Retrofit.Builder()
-                .baseUrl(mockWebServer.url("/v1/"))
-                .addConverterFactory(GsonConverterFactory.create())
-                .build();
-        teamService = retrofit.create(TeamService.class);
-    }
-
-    @AfterEach
-    void tearDown() throws IOException {
-        mockWebServer.shutdown();
-    }
-
-    private String loadJsonFromResource(String filename) throws IOException {
-        return new String(Files.readAllBytes(
-                Paths.get("src/test/resources/json/" + filename + ".json")));
+    void init() {
+        teamService = new TeamServiceImpl(client);
     }
 
     @Test

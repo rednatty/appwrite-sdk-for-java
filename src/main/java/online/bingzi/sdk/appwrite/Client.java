@@ -4,7 +4,6 @@ import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import okhttp3.OkHttpClient;
 import okhttp3.Request;
-import online.bingzi.sdk.appwrite.config.AppwriteConfig;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 
@@ -12,12 +11,34 @@ import retrofit2.converter.gson.GsonConverterFactory;
  * Appwrite客户端
  */
 public class Client {
-    private final Retrofit retrofit;
-    private final AppwriteConfig config;
+    private String endpoint = "https://appwrite.io/v1";
+    private String projectId;
+    private String apiKey;
+    private Retrofit retrofit;
 
-    public Client(AppwriteConfig config) {
-        this.config = config;
-        
+    public Client setEndpoint(String endpoint) {
+        this.endpoint = endpoint;
+        this.initRetrofit();
+        return this;
+    }
+
+    public Client setProject(String projectId) {
+        this.projectId = projectId;
+        this.initRetrofit();
+        return this;
+    }
+
+    public Client setKey(String apiKey) {
+        this.apiKey = apiKey;
+        this.initRetrofit();
+        return this;
+    }
+
+    private void initRetrofit() {
+        if (projectId == null || apiKey == null) {
+            return;
+        }
+
         // 配置Gson
         Gson gson = new GsonBuilder()
                 .setLenient()
@@ -28,8 +49,8 @@ public class Client {
                 .addInterceptor(chain -> {
                     Request original = chain.request();
                     Request.Builder builder = original.newBuilder()
-                            .header("X-Appwrite-Project", config.getProjectId())
-                            .header("X-Appwrite-Key", config.getApiKey())
+                            .header("X-Appwrite-Project", projectId)
+                            .header("X-Appwrite-Key", apiKey)
                             .header("Content-Type", "application/json")
                             .method(original.method(), original.body());
                     return chain.proceed(builder.build());
@@ -38,26 +59,10 @@ public class Client {
 
         // 初始化Retrofit
         this.retrofit = new Retrofit.Builder()
-                .baseUrl(AppwriteConfig.ENDPOINT)
+                .baseUrl(endpoint)
                 .client(client)
                 .addConverterFactory(GsonConverterFactory.create(gson))
                 .build();
-    }
-
-    /**
-     * 获取Retrofit实例
-     * @return Retrofit实例
-     */
-    public Retrofit getRetrofit() {
-        return retrofit;
-    }
-
-    /**
-     * 获取配置信息
-     * @return Appwrite配置
-     */
-    public AppwriteConfig getConfig() {
-        return config;
     }
 
     /**
@@ -67,6 +72,9 @@ public class Client {
      * @return 服务接口实例
      */
     public <T> T createService(Class<T> serviceClass) {
+        if (retrofit == null) {
+            throw new IllegalStateException("Client not properly initialized. Please set endpoint, project ID and API key.");
+        }
         return retrofit.create(serviceClass);
     }
 } 

@@ -41,8 +41,8 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public Call<Collection> createCollection(String databaseId, String collectionId, String name, List<String> permissions) {
-        return databaseService.createCollection(databaseId, collectionId, name, permissions);
+    public Call<Collection> createCollection(String databaseId, String name, String collectionId, List<String> permissions) {
+        return databaseService.createCollection(databaseId, name, collectionId, permissions);
     }
 
     @Override
