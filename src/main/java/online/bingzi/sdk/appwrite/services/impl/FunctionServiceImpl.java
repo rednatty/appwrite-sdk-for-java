@@ -4,9 +4,8 @@ import okhttp3.MediaType;
 import okhttp3.MultipartBody;
 import okhttp3.RequestBody;
 import online.bingzi.sdk.appwrite.Client;
-import online.bingzi.sdk.appwrite.models.Deployment;
-import online.bingzi.sdk.appwrite.models.Execution;
 import online.bingzi.sdk.appwrite.models.Function;
+import online.bingzi.sdk.appwrite.models.Execution;
 import online.bingzi.sdk.appwrite.services.FunctionService;
 import retrofit2.Call;
 
@@ -24,10 +23,10 @@ public class FunctionServiceImpl implements FunctionService {
     }
 
     @Override
-    public Call<Function> createFunction(String name, String runtime, List<String> execute,
-                                       String id, List<String> events, String schedule,
+    public Call<Function> createFunction(String functionId, String name, String runtime,
+                                       List<String> execute, List<String> events, String schedule,
                                        Integer timeout, Boolean enabled) {
-        return functionService.createFunction(name, runtime, execute, id, events,
+        return functionService.createFunction(functionId, name, runtime, execute, events,
                 schedule, timeout, enabled);
     }
 
@@ -55,9 +54,24 @@ public class FunctionServiceImpl implements FunctionService {
     }
 
     @Override
-    public Call<Deployment> createDeployment(String functionId, MultipartBody.Part code,
-                                           Boolean activate, String entrypoint, String commands) {
-        return functionService.createDeployment(functionId, code, activate, entrypoint, commands);
+    public Call<List<Execution>> listExecutions(String functionId) {
+        return functionService.listExecutions(functionId);
+    }
+
+    @Override
+    public Call<Execution> createExecution(String functionId, Map<String, Object> data) {
+        return functionService.createExecution(functionId, data);
+    }
+
+    @Override
+    public Call<Execution> getExecution(String functionId, String executionId) {
+        return functionService.getExecution(functionId, executionId);
+    }
+
+    @Override
+    public Call<Function> createDeployment(String functionId, MultipartBody.Part code,
+                                         String entrypoint, String commands) {
+        return functionService.createDeployment(functionId, code, entrypoint, commands);
     }
 
     /**
@@ -65,45 +79,19 @@ public class FunctionServiceImpl implements FunctionService {
      *
      * @param functionId 函数ID
      * @param code       代码内容
-     * @param activate   是否激活
      * @param entrypoint 入口点
      * @param commands   构建命令
      * @return 部署信息
      */
-    public Call<Deployment> createDeployment(String functionId, byte[] code,
-                                           Boolean activate, String entrypoint, String commands) {
+    public Call<Function> createDeployment(String functionId, byte[] code,
+                                         String entrypoint, String commands) {
         RequestBody requestFile = RequestBody.create(MediaType.parse("application/octet-stream"), code);
         MultipartBody.Part codePart = MultipartBody.Part.createFormData("code", "code.zip", requestFile);
-        return createDeployment(functionId, codePart, activate, entrypoint, commands);
+        return createDeployment(functionId, codePart, entrypoint, commands);
     }
 
     @Override
-    public Call<List<Deployment>> listDeployments(String functionId) {
-        return functionService.listDeployments(functionId);
-    }
-
-    @Override
-    public Call<Deployment> getDeployment(String functionId, String deploymentId) {
-        return functionService.getDeployment(functionId, deploymentId);
-    }
-
-    @Override
-    public Call<Void> deleteDeployment(String functionId, String deploymentId) {
-        return functionService.deleteDeployment(functionId, deploymentId);
-    }
-
-    @Override
-    public Call<Execution> createExecution(String functionId, Map<String, Object> data, Boolean async) {
-        return functionService.createExecution(functionId, data, async);
-    }
-
-    @Override
-    public Call<List<Execution>> listExecutions(String functionId) {
-        return functionService.listExecutions(functionId);
-    }
-
-    @Override
-    public Call<Execution> getExecution(String functionId, String executionId) {
-        return functionService.getExecution(functionId, executionId);
+    public Call<Function> updateVariables(String functionId, Map<String, String> variables) {
+        return functionService.updateVariables(functionId, variables);
     }
 } 

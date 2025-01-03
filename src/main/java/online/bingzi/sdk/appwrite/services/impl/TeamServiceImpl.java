@@ -20,8 +20,8 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Call<Team> createTeam(String name, String id, List<String> roles) {
-        return teamService.createTeam(name, id, roles);
+    public Call<Team> createTeam(String teamId, String name, List<String> roles) {
+        return teamService.createTeam(teamId, name, roles);
     }
 
     @Override
@@ -50,9 +50,8 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Call<Membership> createMembership(String teamId, String email,
-                                           List<String> roles, String url, String name) {
-        return teamService.createMembership(teamId, email, roles, url, name);
+    public Call<Membership> createMembership(String teamId, String email, List<String> roles, String url) {
+        return teamService.createMembership(teamId, email, roles, url);
     }
 
     @Override
@@ -61,25 +60,13 @@ public class TeamServiceImpl implements TeamService {
     }
 
     @Override
-    public Call<Membership> updateMembership(String teamId, String membershipId,
-                                           List<String> roles) {
+    public Call<Membership> updateMembership(String teamId, String membershipId, List<String> roles) {
         return teamService.updateMembership(teamId, membershipId, roles);
     }
 
     @Override
     public Call<Void> deleteMembership(String teamId, String membershipId) {
         return teamService.deleteMembership(teamId, membershipId);
-    }
-
-    @Override
-    public Call<Membership> updateMembershipStatus(String teamId, String membershipId,
-                                                 String userId, String secret) {
-        return teamService.updateMembershipStatus(teamId, membershipId, userId, secret);
-    }
-
-    @Override
-    public Call<Map<String, Object>> getPrefs(String teamId) {
-        return teamService.getPrefs(teamId);
     }
 
     @Override

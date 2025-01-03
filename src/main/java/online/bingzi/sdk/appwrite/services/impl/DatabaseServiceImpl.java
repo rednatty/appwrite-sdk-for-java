@@ -41,8 +41,8 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public Call<Collection> createCollection(String databaseId, String name, String id) {
-        return databaseService.createCollection(databaseId, name, id);
+    public Call<Collection> createCollection(String databaseId, String collectionId, String name, List<String> permissions) {
+        return databaseService.createCollection(databaseId, collectionId, name, permissions);
     }
 
     @Override
@@ -61,8 +61,8 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public Call<Document<Map<String, Object>>> createDocument(String databaseId, String collectionId, Map<String, Object> data, String id) {
-        return databaseService.createDocument(databaseId, collectionId, data, id);
+    public Call<Document<Map<String, Object>>> createDocument(String databaseId, String collectionId, String documentId, Map<String, Object> data, List<String> permissions) {
+        return databaseService.createDocument(databaseId, collectionId, documentId, data, permissions);
     }
 
     @Override
@@ -76,8 +76,8 @@ public class DatabaseServiceImpl implements DatabaseService {
     }
 
     @Override
-    public Call<Document<Map<String, Object>>> updateDocument(String databaseId, String collectionId, String documentId, Map<String, Object> data) {
-        return databaseService.updateDocument(databaseId, collectionId, documentId, data);
+    public Call<Document<Map<String, Object>>> updateDocument(String databaseId, String collectionId, String documentId, Map<String, Object> data, List<String> permissions) {
+        return databaseService.updateDocument(databaseId, collectionId, documentId, data, permissions);
     }
 
     @Override

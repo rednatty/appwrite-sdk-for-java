@@ -43,8 +43,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Call<Void> createRecovery(String email) {
-        return accountService.createRecovery(email);
+    public Call<Void> createRecovery(String email, String url) {
+        return accountService.createRecovery(email, url);
     }
 
     @Override
@@ -53,8 +53,8 @@ public class AccountServiceImpl implements AccountService {
     }
 
     @Override
-    public Call<Void> deleteSession() {
-        return accountService.deleteSession();
+    public Call<Void> deleteSession(String sessionId) {
+        return accountService.deleteSession(sessionId);
     }
 
     @Override
