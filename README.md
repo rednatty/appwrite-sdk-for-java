@@ -1,185 +1,145 @@
-# Appwrite Java SDK
+# Appwrite SDK for Java
 
-这是一个用于与Appwrite后端服务交互的Java SDK。
+这是一个用于与Appwrite后端服务进行交互的Java SDK。该SDK提供了简单且直观的API，使开发者能够轻松地集成Appwrite服务到他们的Java应用程序中。
+
+## 功能特性
+
+- 账户管理
+- 数据库操作
+- 存储服务
+- 完整的类型支持
+- 异步请求处理
+- 简单的API设计
 
 ## 技术栈
 
 - Java 8
-- Retrofit 2 (网络请求)
-- Gson (JSON处理)
-- OkHttp (HTTP客户端)
-- JUnit 5 (单元测试)
-- Mockito (测试模拟)
-- JaCoCo (测试覆盖率)
+- Retrofit 2（网络请求）
+- OkHttp（HTTP客户端）
+- Gson（JSON处理）
 
-## 项目结构
+## 依赖项
 
-```
-sdk-for-java/
-├── src/
-│   ├── main/java/online/bingzi/sdk/appwrite/
-│   │   ├── config/
-│   │   │   └── AppwriteConfig.java
-│   │   ├── models/
-│   │   │   ├── User.java
-│   │   │   ├── Team.java
-│   │   │   ├── Membership.java
-│   │   │   ├── Database.java
-│   │   │   ├── Collection.java
-│   │   │   ├── Document.java
-│   │   │   ├── File.java
-│   │   │   ├── Bucket.java
-│   │   │   └── Function.java
-│   │   ├── services/
-│   │   │   ├── AccountService.java
-│   │   │   ├── TeamService.java
-│   │   │   ├── DatabaseService.java
-│   │   │   ├── StorageService.java
-│   │   │   ├── FunctionService.java
-│   │   │   └── impl/
-│   │   │       ├── AccountServiceImpl.java
-│   │   │       ├── TeamServiceImpl.java
-│   │   │       ├── DatabaseServiceImpl.java
-│   │   │       ├── StorageServiceImpl.java
-│   │   │       └── FunctionServiceImpl.java
-│   │   └── Client.java
-│   └── test/
-│       ├── java/online/bingzi/sdk/appwrite/
-│       │   ├── BaseTest.java
-│       │   └── services/
-│       │       ├── AccountServiceTest.java
-│       │       └── TeamServiceTest.java
-│       └── resources/
-│           └── json/
-│               ├── user.json
-│               ├── team.json
-│               └── membership.json
-└── pom.xml
+```xml
+<dependencies>
+    <!-- Retrofit -->
+    <dependency>
+        <groupId>com.squareup.retrofit2</groupId>
+        <artifactId>retrofit</artifactId>
+        <version>2.9.0</version>
+    </dependency>
+    
+    <!-- Gson Converter -->
+    <dependency>
+        <groupId>com.squareup.retrofit2</groupId>
+        <artifactId>converter-gson</artifactId>
+        <version>2.9.0</version>
+    </dependency>
+    
+    <!-- OkHttp -->
+    <dependency>
+        <groupId>com.squareup.okhttp3</groupId>
+        <artifactId>okhttp</artifactId>
+        <version>4.9.1</version>
+    </dependency>
+    
+    <!-- JUnit Jupiter -->
+    <dependency>
+        <groupId>org.junit.jupiter</groupId>
+        <artifactId>junit-jupiter</artifactId>
+        <version>5.8.1</version>
+        <scope>test</scope>
+    </dependency>
+    
+    <!-- Mockito -->
+    <dependency>
+        <groupId>org.mockito</groupId>
+        <artifactId>mockito-core</artifactId>
+        <version>4.0.0</version>
+        <scope>test</scope>
+    </dependency>
+</dependencies>
 ```
 
-## 已完成功能
+## 快速开始
 
-### 核心功能
-- [x] 客户端初始化
-- [x] 配置管理
-- [x] API请求拦截器
+1. 添加依赖项到你的项目中
+2. 创建SDK客户端实例：
 
-### 账户模块
-- [x] 用户注册
-- [x] 邮箱登录
-- [x] 获取账户信息
-- [x] 获取/更新偏好设置
-- [x] 密码重置
-- [x] 会话管理
-
-### 团队模块
-- [x] 创建团队
-- [x] 获取团队列表
-- [x] 获取/更新团队信息
-- [x] 删除团队
-- [x] 成员管理
-- [x] 团队偏好设置
-
-### 数据库模块
-- [x] 创建/删除数据库
-- [x] 集合管理
-- [x] 文档CRUD操作
-
-### 存储模块
-- [x] 存储桶管理
-- [x] 文件上传/下载
-- [x] 文件预览
-- [x] 文件删除
-
-### 函数模块
-- [x] 创建/删除函数
-- [x] 函数部署
-- [x] 函数执行
-- [x] 执行记录查询
-
-## 测试覆盖
-- [x] 团队模块单元测试
-- [x] 账户模块单元测试
-- [ ] 数据库模块单元测试 (进行中)
-- [ ] 存储模块单元测试
-- [ ] 函数模块单元测试
-- [ ] 集成测试
-
-## 使用示例
-
-### 初始化客户端
 ```java
-AppwriteConfig config = new AppwriteConfig("your-project-id", "your-api-key");
-Client client = new Client(config);
+AppwriteClient client = new AppwriteClient()
+    .setEndpoint("https://[HOSTNAME_OR_IP]/v1")
+    .setProject("your-project-id")
+    .setKey("your-api-key");
 ```
 
-### 账户操作
+3. 使用服务：
+
 ```java
-AccountService accountService = new AccountServiceImpl(client);
+// 账户服务示例
+AccountService accountService = client.getAccount();
+accountService.get().enqueue(new Callback<Account>() {
+    @Override
+    public void onResponse(Call<Account> call, Response<Account> response) {
+        Account account = response.body();
+        System.out.println("Current user: " + account.getName());
+    }
 
-// 创建用户
-User user = accountService.create("email@example.com", "password", "User Name")
-    .execute()
-    .body();
+    @Override
+    public void onFailure(Call<Account> call, Throwable t) {
+        System.err.println("Error: " + t.getMessage());
+    }
+});
 
-// 登录
-User loggedInUser = accountService.createEmailSession("email@example.com", "password")
-    .execute()
-    .body();
+// 数据库服务示例
+DatabaseService databaseService = client.getDatabase();
+databaseService.listDocuments("collection-id").enqueue(new Callback<List<Document>>() {
+    @Override
+    public void onResponse(Call<List<Document>> call, Response<List<Document>> response) {
+        List<Document> documents = response.body();
+        documents.forEach(doc -> System.out.println(doc.getId()));
+    }
+
+    @Override
+    public void onFailure(Call<List<Document>> call, Throwable t) {
+        System.err.println("Error: " + t.getMessage());
+    }
+});
 ```
 
-### 团队操作
-```java
-TeamService teamService = new TeamServiceImpl(client);
+## 开发规范
 
-// 创建团队
-Team team = teamService.createTeam("Team Name")
-    .execute()
-    .body();
+- 遵循SOLID原则
+- 使用DRY（Don't Repeat Yourself）原则
+- 遵循KISS（Keep It Simple, Stupid）原则
+- 遵循YAGNI（You Aren't Gonna Need It）原则
+- 遵循OWASP安全最佳实践
 
-// 添加成员
-Membership membership = teamService.createMembership(
-    team.getId(),
-    "member@example.com",
-    Arrays.asList("developer")
-).execute().body();
+## 测试
+
+项目使用JUnit 5进行单元测试。测试覆盖：
+
+- 账户服务
+- 数据库服务
+- 存储服务
+- 模型类
+- 工具类
+
+运行测试：
+
+```bash
+mvn test
 ```
 
-## 下一步计划
+## 贡献
 
-1. 完成账户模块单元测试
-   - 修复当前的编译错误
-   - 补充边界条件测试
-   - 添加错误处理测试
+欢迎提交Pull Request和Issue。在提交代码前，请确保：
 
-2. 实现数据库模块单元测试
-   - 创建测试JSON文件
-   - 编写基础CRUD测试
-   - 添加高级查询测试
-
-3. 实现存储模块单元测试
-   - 创建测试JSON文件
-   - 编写文件操作测试
-   - 测试大文件上传下载
-
-4. 实现函数模块单元测试
-   - 创建测试JSON文件
-   - 编写函数生命周期测试
-   - 测试函数执行和日志
-
-5. 添加集成测试
-   - 设置测试环境
-   - 编写端到端测试
-   - 测试模块间交互
-
-## 贡献指南
-
-1. Fork 项目
-2. 创建特性分支 (`git checkout -b feature/AmazingFeature`)
-3. 提交更改 (`git commit -m 'Add some AmazingFeature'`)
-4. 推送到分支 (`git push origin feature/AmazingFeature`)
-5. 开启 Pull Request
+1. 代码符合项目的编码规范
+2. 添加了适当的单元测试
+3. 所有测试都能通过
+4. 更新了相关文档
 
 ## 许可证
 
-本项目采用 MIT 许可证 - 查看 [LICENSE](LICENSE) 文件了解详情 
+本项目采用MIT许可证。详见[LICENSE](LICENSE)文件。 
