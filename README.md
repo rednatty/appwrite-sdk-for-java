@@ -5,11 +5,39 @@
 ## 功能特性
 
 - 账户管理
+  - [x] 用户注册
+  - [x] 邮箱登录
+  - [x] 获取账户信息
+  - [x] 获取/更新偏好设置
+  - [x] 密码重置
+  - [x] 会话管理
+
+- 团队管理
+  - [x] 创建团队
+  - [x] 获取团队列表
+  - [x] 获取/更新团队信息
+  - [x] 删除团队
+  - [x] 成员管理
+  - [x] 团队偏好设置
+
 - 数据库操作
+  - [x] 创建/删除数据库
+  - [x] 集合管理
+  - [x] 文档CRUD操作
+  - [x] 高级查询支持
+
 - 存储服务
-- 完整的类型支持
-- 异步请求处理
-- 简单的API设计
+  - [x] 存储桶管理
+  - [x] 文件上传/下载
+  - [x] 文件预览
+  - [x] 文件删除
+
+- 函数服务
+  - [x] 创建/删除函数
+  - [x] 函数部署
+  - [x] 函数执行
+  - [x] 执行记录查询
+  - [x] 环境变量管理
 
 ## 技术栈
 
@@ -41,22 +69,6 @@
         <groupId>com.squareup.okhttp3</groupId>
         <artifactId>okhttp</artifactId>
         <version>4.9.1</version>
-    </dependency>
-    
-    <!-- JUnit Jupiter -->
-    <dependency>
-        <groupId>org.junit.jupiter</groupId>
-        <artifactId>junit-jupiter</artifactId>
-        <version>5.8.1</version>
-        <scope>test</scope>
-    </dependency>
-    
-    <!-- Mockito -->
-    <dependency>
-        <groupId>org.mockito</groupId>
-        <artifactId>mockito-core</artifactId>
-        <version>4.0.0</version>
-        <scope>test</scope>
     </dependency>
 </dependencies>
 ```
@@ -107,6 +119,48 @@ databaseService.listDocuments("collection-id").enqueue(new Callback<List<Documen
 });
 ```
 
+## 测试覆盖
+
+项目使用JUnit 5进行单元测试，使用JaCoCo进行代码覆盖率分析。
+
+已完成的测试模块：
+- [x] 账户服务测试
+  - 用户注册/登录
+  - 账户信息管理
+  - 会话管理
+  - 偏好设置
+
+- [x] 团队服务测试
+  - 团队CRUD操作
+  - 成员管理
+  - 偏好设置
+
+- [x] 数据库服务测试
+  - 数据库管理
+  - 集合操作
+  - 文档CRUD
+  - 查询测试
+
+- [x] 存储服务测试
+  - 存储桶管理
+  - 文件操作
+  - 权限测试
+
+- [x] 函数服务测试
+  - 函数管理
+  - 部署测试
+  - 执行测试
+  - 变量管理
+
+运行测试：
+```bash
+mvn test
+```
+
+查看测试报告：
+- 测试报告：`target/surefire-reports/`
+- 覆盖率报告：`target/site/jacoco/`
+
 ## 开发规范
 
 - 遵循SOLID原则
@@ -115,20 +169,40 @@ databaseService.listDocuments("collection-id").enqueue(new Callback<List<Documen
 - 遵循YAGNI（You Aren't Gonna Need It）原则
 - 遵循OWASP安全最佳实践
 
-## 测试
+## 项目结构
 
-项目使用JUnit 5进行单元测试。测试覆盖：
-
-- 账户服务
-- 数据库服务
-- 存储服务
-- 模型类
-- 工具类
-
-运行测试：
-
-```bash
-mvn test
+```
+sdk-for-java/
+├── src/
+│   ├── main/java/online/bingzi/sdk/appwrite/
+│   │   ├── models/          # 数据模型
+│   │   │   ├── Account.java
+│   │   │   ├── Team.java
+│   │   │   ├── Database.java
+│   │   │   ├── Document.java
+│   │   │   ├── File.java
+│   │   │   └── Function.java
+│   │   ├── services/        # 服务接口
+│   │   │   ├── AccountService.java
+│   │   │   ├── TeamService.java
+│   │   │   ├── DatabaseService.java
+│   │   │   ├── StorageService.java
+│   │   │   └── FunctionService.java
+│   │   └── Client.java      # SDK客户端
+│   └── test/
+│       ├── java/.../services/   # 服务测试
+│       │   ├── AccountServiceTest.java
+│       │   ├── TeamServiceTest.java
+│       │   ├── DatabaseServiceTest.java
+│       │   ├── StorageServiceTest.java
+│       │   └── FunctionServiceTest.java
+│       └── resources/
+│           └── json/        # 测试数据
+│               ├── account.json
+│               ├── team.json
+│               ├── database.json
+│               └── function.json
+└── pom.xml                  # 项目配置
 ```
 
 ## 贡献
