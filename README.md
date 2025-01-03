@@ -1,52 +1,54 @@
 # Appwrite SDK for Java
 
-这是一个用于与Appwrite后端服务进行交互的Java SDK。该SDK提供了简单且直观的API，使开发者能够轻松地集成Appwrite服务到他们的Java应用程序中。
+English | [简体中文](README_zh.md)
 
-## 功能特性
+A Java SDK for interacting with Appwrite backend services. This SDK provides a simple and intuitive API that enables developers to easily integrate Appwrite services into their Java applications.
 
-- 账户管理
-  - [x] 用户注册
-  - [x] 邮箱登录
-  - [x] 获取账户信息
-  - [x] 获取/更新偏好设置
-  - [x] 密码重置
-  - [x] 会话管理
+## Features
 
-- 团队管理
-  - [x] 创建团队
-  - [x] 获取团队列表
-  - [x] 获取/更新团队信息
-  - [x] 删除团队
-  - [x] 成员管理
-  - [x] 团队偏好设置
+- Account Management
+  - [x] User Registration
+  - [x] Email Login
+  - [x] Account Information
+  - [x] Preferences Management
+  - [x] Password Reset
+  - [x] Session Management
 
-- 数据库操作
-  - [x] 创建/删除数据库
-  - [x] 集合管理
-  - [x] 文档CRUD操作
-  - [x] 高级查询支持
+- Team Management
+  - [x] Create Team
+  - [x] List Teams
+  - [x] Get/Update Team Info
+  - [x] Delete Team
+  - [x] Member Management
+  - [x] Team Preferences
 
-- 存储服务
-  - [x] 存储桶管理
-  - [x] 文件上传/下载
-  - [x] 文件预览
-  - [x] 文件删除
+- Database Operations
+  - [x] Create/Delete Database
+  - [x] Collection Management
+  - [x] Document CRUD
+  - [x] Advanced Query Support
 
-- 函数服务
-  - [x] 创建/删除函数
-  - [x] 函数部署
-  - [x] 函数执行
-  - [x] 执行记录查询
-  - [x] 环境变量管理
+- Storage Service
+  - [x] Bucket Management
+  - [x] File Upload/Download
+  - [x] File Preview
+  - [x] File Deletion
 
-## 技术栈
+- Function Service
+  - [x] Create/Delete Functions
+  - [x] Function Deployment
+  - [x] Function Execution
+  - [x] Execution Logs
+  - [x] Environment Variables
+
+## Tech Stack
 
 - Java 8
-- Retrofit 2（网络请求）
-- OkHttp（HTTP客户端）
-- Gson（JSON处理）
+- Retrofit 2 (Network Requests)
+- OkHttp (HTTP Client)
+- Gson (JSON Processing)
 
-## 依赖项
+## Dependencies
 
 ```xml
 <dependencies>
@@ -73,10 +75,10 @@
 </dependencies>
 ```
 
-## 快速开始
+## Quick Start
 
-1. 添加依赖项到你的项目中
-2. 创建SDK客户端实例：
+1. Add dependencies to your project
+2. Create SDK client instance:
 
 ```java
 AppwriteClient client = new AppwriteClient()
@@ -85,10 +87,10 @@ AppwriteClient client = new AppwriteClient()
     .setKey("your-api-key");
 ```
 
-3. 使用服务：
+3. Use services:
 
 ```java
-// 账户服务示例
+// Account Service Example
 AccountService accountService = client.getAccount();
 accountService.get().enqueue(new Callback<Account>() {
     @Override
@@ -103,7 +105,7 @@ accountService.get().enqueue(new Callback<Account>() {
     }
 });
 
-// 数据库服务示例
+// Database Service Example
 DatabaseService databaseService = client.getDatabase();
 databaseService.listDocuments("collection-id").enqueue(new Callback<List<Document>>() {
     @Override
@@ -119,101 +121,101 @@ databaseService.listDocuments("collection-id").enqueue(new Callback<List<Documen
 });
 ```
 
-## 测试覆盖
+## Test Coverage
 
-项目使用JUnit 5进行单元测试，使用JaCoCo进行代码覆盖率分析。
+The project uses JUnit 5 for unit testing and JaCoCo for code coverage analysis.
 
-已完成的测试模块：
-- [x] 账户服务测试
-  - 用户注册/登录
-  - 账户信息管理
-  - 会话管理
-  - 偏好设置
+Completed test modules:
+- [x] Account Service Tests
+  - User Registration/Login
+  - Account Information Management
+  - Session Management
+  - Preferences Management
 
-- [x] 团队服务测试
-  - 团队CRUD操作
-  - 成员管理
-  - 偏好设置
+- [x] Team Service Tests
+  - Team CRUD Operations
+  - Member Management
+  - Preferences Management
 
-- [x] 数据库服务测试
-  - 数据库管理
-  - 集合操作
-  - 文档CRUD
-  - 查询测试
+- [x] Database Service Tests
+  - Database Management
+  - Collection Operations
+  - Document CRUD
+  - Query Tests
 
-- [x] 存储服务测试
-  - 存储桶管理
-  - 文件操作
-  - 权限测试
+- [x] Storage Service Tests
+  - Bucket Management
+  - File Operations
+  - Permission Tests
 
-- [x] 函数服务测试
-  - 函数管理
-  - 部署测试
-  - 执行测试
-  - 变量管理
+- [x] Function Service Tests
+  - Function Management
+  - Deployment Tests
+  - Execution Tests
+  - Variable Management
 
-运行测试：
+Run tests:
 ```bash
 mvn test
 ```
 
-查看测试报告：
-- 测试报告：`target/surefire-reports/`
-- 覆盖率报告：`target/site/jacoco/`
+View reports:
+- Test Reports: `target/surefire-reports/`
+- Coverage Reports: `target/site/jacoco/`
 
-## 开发规范
+## Development Guidelines
 
-- 遵循SOLID原则
-- 使用DRY（Don't Repeat Yourself）原则
-- 遵循KISS（Keep It Simple, Stupid）原则
-- 遵循YAGNI（You Aren't Gonna Need It）原则
-- 遵循OWASP安全最佳实践
+- Follow SOLID Principles
+- Apply DRY (Don't Repeat Yourself)
+- Follow KISS (Keep It Simple, Stupid)
+- Follow YAGNI (You Aren't Gonna Need It)
+- Follow OWASP Security Best Practices
 
-## 项目结构
+## Project Structure
 
 ```
 sdk-for-java/
 ├── src/
 │   ├── main/java/online/bingzi/sdk/appwrite/
-│   │   ├── models/          # 数据模型
+│   │   ├── models/          # Data Models
 │   │   │   ├── Account.java
 │   │   │   ├── Team.java
 │   │   │   ├── Database.java
 │   │   │   ├── Document.java
 │   │   │   ├── File.java
 │   │   │   └── Function.java
-│   │   ├── services/        # 服务接口
+│   │   ├── services/        # Service Interfaces
 │   │   │   ├── AccountService.java
 │   │   │   ├── TeamService.java
 │   │   │   ├── DatabaseService.java
 │   │   │   ├── StorageService.java
 │   │   │   └── FunctionService.java
-│   │   └── Client.java      # SDK客户端
+│   │   └── Client.java      # SDK Client
 │   └── test/
-│       ├── java/.../services/   # 服务测试
+│       ├── java/.../services/   # Service Tests
 │       │   ├── AccountServiceTest.java
 │       │   ├── TeamServiceTest.java
 │       │   ├── DatabaseServiceTest.java
 │       │   ├── StorageServiceTest.java
 │       │   └── FunctionServiceTest.java
 │       └── resources/
-│           └── json/        # 测试数据
+│           └── json/        # Test Data
 │               ├── account.json
 │               ├── team.json
 │               ├── database.json
 │               └── function.json
-└── pom.xml                  # 项目配置
+└── pom.xml                  # Project Configuration
 ```
 
-## 贡献
+## Contributing
 
-欢迎提交Pull Request和Issue。在提交代码前，请确保：
+Pull requests and issues are welcome. Before submitting code, please ensure:
 
-1. 代码符合项目的编码规范
-2. 添加了适当的单元测试
-3. 所有测试都能通过
-4. 更新了相关文档
+1. Code follows project coding standards
+2. Appropriate unit tests are added
+3. All tests pass
+4. Documentation is updated
 
-## 许可证
+## License
 
-本项目采用MIT许可证。详见[LICENSE](LICENSE)文件。 
+This project is licensed under the MIT License. See the [LICENSE](LICENSE) file for details. 
