@@ -31,4 +31,13 @@ public class AppwriteConfig {
     public String getApiKey() {
         return apiKey;
     }
+
+    /**
+     * 获取API端点
+     *
+     * @return API端点
+     */
+    public String getEndpoint() {
+        return ENDPOINT;
+    }
 } 

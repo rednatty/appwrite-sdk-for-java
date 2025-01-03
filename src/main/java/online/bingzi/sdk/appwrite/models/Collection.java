@@ -1,6 +1,7 @@
 package online.bingzi.sdk.appwrite.models;
 
 import com.google.gson.annotations.SerializedName;
+
 import java.util.List;
 import java.util.Map;
 
@@ -11,7 +12,13 @@ public class Collection {
     @SerializedName("$id")
     private String id;
 
-    @SerializedName("$databaseId")
+    @SerializedName("$createdAt")
+    private String createdAt;
+
+    @SerializedName("$updatedAt")
+    private String updatedAt;
+
+    @SerializedName("databaseId")
     private String databaseId;
 
     @SerializedName("name")
@@ -23,9 +30,6 @@ public class Collection {
     @SerializedName("documentSecurity")
     private boolean documentSecurity;
 
-    @SerializedName("permissions")
-    private List<String> permissions;
-
     @SerializedName("attributes")
     private List<Map<String, Object>> attributes;
 
@@ -34,6 +38,14 @@ public class Collection {
 
     public String getId() {
         return id;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
     public String getDatabaseId() {
@@ -50,10 +62,6 @@ public class Collection {
 
     public boolean isDocumentSecurity() {
         return documentSecurity;
-    }
-
-    public List<String> getPermissions() {
-        return permissions;
     }
 
     public List<Map<String, Object>> getAttributes() {

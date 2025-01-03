@@ -1,0 +1,32 @@
+{
+    "$id": "5e5ea5c16897e",
+    "$createdAt": "2020-10-15T06:38:00.000Z",
+    "$updatedAt": "2020-10-15T06:38:00.000Z",
+    "databaseId": "5e5ea5c16897e",
+    "name": "Test Collection",
+    "enabled": true,
+    "documentSecurity": true,
+    "attributes": [
+        {
+            "key": "name",
+            "type": "string",
+            "size": 255,
+            "required": true
+        },
+        {
+            "key": "age",
+            "type": "integer",
+            "min": 0,
+            "max": 100,
+            "required": false
+        }
+    ],
+    "indexes": [
+        {
+            "key": "name_idx",
+            "type": "key",
+            "attributes": ["name"],
+            "orders": ["ASC"]
+        }
+    ]
+} 

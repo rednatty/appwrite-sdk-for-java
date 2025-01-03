@@ -9,6 +9,12 @@ public class Database {
     @SerializedName("$id")
     private String id;
 
+    @SerializedName("$createdAt")
+    private String createdAt;
+
+    @SerializedName("$updatedAt")
+    private String updatedAt;
+
     @SerializedName("name")
     private String name;
 
@@ -17,6 +23,14 @@ public class Database {
 
     public String getId() {
         return id;
+    }
+
+    public String getCreatedAt() {
+        return createdAt;
+    }
+
+    public String getUpdatedAt() {
+        return updatedAt;
     }
 
     public String getName() {

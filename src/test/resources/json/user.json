@@ -1,0 +1,13 @@
+{
+    "$id": "5e5ea5c16897e",
+    "$createdAt": "2020-10-15T06:38:00.000Z",
+    "$updatedAt": "2020-10-15T06:38:00.000Z",
+    "email": "john@example.com",
+    "emailVerification": true,
+    "name": "John Doe",
+    "status": true,
+    "prefs": {
+        "theme": "dark",
+        "notifications": true
+    }
+} 
