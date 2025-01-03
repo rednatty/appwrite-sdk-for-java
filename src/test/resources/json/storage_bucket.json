@@ -1,0 +1,13 @@
+{
+    "$id": "default",
+    "$createdAt": "2020-10-15T06:38:00.000Z",
+    "$updatedAt": "2020-10-15T06:38:00.000Z",
+    "$permissions": ["read", "write"],
+    "name": "Default",
+    "enabled": true,
+    "maximumFileSize": 30000000,
+    "allowedFileExtensions": ["jpg", "png", "pdf"],
+    "compression": "none",
+    "encryption": true,
+    "antivirus": true
+} 

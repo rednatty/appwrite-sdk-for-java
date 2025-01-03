@@ -1,0 +1,19 @@
+{
+    "$id": "5e5ea5c16897e",
+    "$createdAt": "2020-10-15T06:38:00.000Z",
+    "$updatedAt": "2020-10-15T06:38:00.000Z",
+    "name": "hello-world",
+    "enabled": true,
+    "runtime": "node-14.5",
+    "execute": ["users"],
+    "events": ["users.*.create"],
+    "schedule": "0 0 * * *",
+    "timeout": 15,
+    "entrypoint": "src/index.js",
+    "commands": "npm install",
+    "deployment": "5e5ea5c16897f",
+    "vars": {
+        "API_KEY": "123456",
+        "DB_NAME": "test"
+    }
+} 

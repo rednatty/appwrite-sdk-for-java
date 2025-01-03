@@ -2,9 +2,11 @@
     "$id": "5e5ea5c16897e",
     "$createdAt": "2020-10-15T06:38:00.000Z",
     "$updatedAt": "2020-10-15T06:38:00.000Z",
-    "name": "Test Team",
+    "name": "Development Team",
     "total": 10,
     "prefs": {
-        "roles": ["admin", "developer"]
+        "maxMembers": 100,
+        "allowInvites": true,
+        "inviteExpiresIn": 7200
     }
 } 

@@ -1,0 +1,12 @@
+{
+    "$id": "5e5ea5c16897f",
+    "$createdAt": "2020-10-15T06:38:00.000Z",
+    "functionId": "5e5ea5c16897e",
+    "trigger": "http",
+    "status": "completed",
+    "statusCode": 200,
+    "response": "Hello, World!",
+    "stdout": "Function executed successfully",
+    "stderr": "",
+    "duration": 0.12
+} 

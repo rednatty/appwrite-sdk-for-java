@@ -1,0 +1,12 @@
+{
+    "$id": "5e5ea5c16897e",
+    "$createdAt": "2020-10-15T06:38:00.000Z",
+    "$updatedAt": "2020-10-15T06:38:00.000Z",
+    "$permissions": ["read", "write"],
+    "name": "example.jpg",
+    "signature": "5ee65d...",
+    "mimeType": "image/jpeg",
+    "sizeOriginal": 17890,
+    "chunksTotal": 1,
+    "chunksUploaded": 1
+} 
