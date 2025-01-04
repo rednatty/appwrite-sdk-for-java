@@ -78,6 +78,60 @@ A Java SDK for interacting with Appwrite backend services. This SDK provides a s
 ## Quick Start
 
 1. Add dependencies to your project
+
+For Maven, add the following to your `pom.xml`:
+
+```xml
+
+<repositories>
+  <repository>
+    <id>github</id>
+    <url>https://maven.pkg.github.com/BingZi-233/sdk-for-java</url>
+  </repository>
+</repositories>
+
+<dependencies>
+<dependency>
+  <groupId>online.bingzi</groupId>
+  <artifactId>sdk-for-java</artifactId>
+  <version>{latest-version}</version>
+</dependency>
+</dependencies>
+```
+
+Also add authentication in your Maven `settings.xml`:
+
+```xml
+
+<servers>
+  <server>
+    <id>github</id>
+    <username>YOUR_GITHUB_USERNAME</username>
+    <password>YOUR_GITHUB_TOKEN</password>
+  </server>
+</servers>
+```
+
+Note: Generate a GitHub token with `read:packages` scope.
+
+For Gradle, add the following to your `build.gradle`:
+
+```groovy
+repositories {
+  maven {
+    url = uri("https://maven.pkg.github.com/BingZi-233/sdk-for-java")
+    credentials {
+      username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+      password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+    }
+  }
+}
+
+dependencies {
+  implementation 'online.bingzi:sdk-for-java:{latest-version}'
+}
+```
+
 2. Create SDK client instance:
 
 ```java

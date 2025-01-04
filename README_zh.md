@@ -78,6 +78,60 @@
 ## 快速开始
 
 1. 添加依赖项到你的项目中
+
+对于 Maven，在你的 `pom.xml` 中添加：
+
+```xml
+
+<repositories>
+  <repository>
+    <id>github</id>
+    <url>https://maven.pkg.github.com/BingZi-233/sdk-for-java</url>
+  </repository>
+</repositories>
+
+<dependencies>
+<dependency>
+  <groupId>online.bingzi</groupId>
+  <artifactId>sdk-for-java</artifactId>
+  <version>{latest-version}</version>
+</dependency>
+</dependencies>
+```
+
+同时在 Maven 的 `settings.xml` 中添加认证信息：
+
+```xml
+
+<servers>
+  <server>
+    <id>github</id>
+    <username>你的GitHub用户名</username>
+    <password>你的GitHub令牌</password>
+  </server>
+</servers>
+```
+
+注意：需要生成一个具有 `read:packages` 权限的 GitHub 令牌。
+
+对于 Gradle，在你的 `build.gradle` 中添加：
+
+```groovy
+repositories {
+  maven {
+    url = uri("https://maven.pkg.github.com/BingZi-233/sdk-for-java")
+    credentials {
+      username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
+      password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
+    }
+  }
+}
+
+dependencies {
+  implementation 'online.bingzi:sdk-for-java:{latest-version}'
+}
+```
+
 2. 创建SDK客户端实例：
 
 ```java
