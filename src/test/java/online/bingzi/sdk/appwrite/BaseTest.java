@@ -18,9 +18,8 @@ public class BaseTest {
 
     @BeforeEach
     void setUp() {
-        mockWebServer = new MockWebServer();
         client = new Client()
-                .setEndpoint(mockWebServer.url("/v1/").toString())
+                .setEndpoint("test-endpoint")
                 .setProject("test-project")
                 .setKey("test-key");
     }
