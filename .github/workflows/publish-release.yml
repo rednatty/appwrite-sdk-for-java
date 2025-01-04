@@ -21,14 +21,12 @@ jobs:
           java-version: '8'
           distribution: 'temurin'
 
-      - name: Build with Gradle
-        uses: gradle/gradle-build-action@v2
-        with:
-          arguments: build
+      - name: Build with Maven
+        run: mvn -B package
 
       - name: Get version
         id: get_version
-        run: echo "VERSION=$(./gradlew properties -q | grep "version:" | awk '{print $2}')" >> $GITHUB_OUTPUT
+        run: echo "VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
 
       - name: Create Release
         uses: softprops/action-gh-release@v1
@@ -38,6 +36,6 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            build/libs/*.jar
+            target/*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }} 
