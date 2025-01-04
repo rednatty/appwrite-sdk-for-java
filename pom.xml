@@ -6,7 +6,7 @@
 
     <groupId>online.bingzi</groupId>
     <artifactId>sdk-for-java</artifactId>
-    <version>0.7-SNAPSHOT</version>
+    <version>0.7</version>
 
     <properties>
         <maven.compiler.source>8</maven.compiler.source>
