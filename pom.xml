@@ -136,9 +136,15 @@
                 <executions>
                     <execution>
                         <id>attach-javadocs</id>
+                        <phase>package</phase>
                         <goals>
                             <goal>jar</goal>
                         </goals>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                            <charset>UTF-8</charset>
+                            <additionalJOption>-Xdoclint:none</additionalJOption>
+                        </configuration>
                     </execution>
                 </executions>
             </plugin>

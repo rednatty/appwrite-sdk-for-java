@@ -28,13 +28,21 @@ jobs:
           distribution: 'temurin'
           server-id: github
           settings-path: ${{ github.workspace }}
+          cache: 'maven'
+
+      - name: Cache Maven packages
+        uses: actions/cache@v3
+        with:
+          path: ~/.m2
+          key: ${{ runner.os }}-m2-${{ hashFiles('**/pom.xml') }}
+          restore-keys: ${{ runner.os }}-m2
 
       - name: Get Version
         id: get_version
         run: echo "version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
 
       - name: Build with Maven
-        run: mvn -B package -DskipTests --file pom.xml
+        run: mvn -B clean package -DskipTests --file pom.xml
 
       - name: Publish to GitHub Packages
         run: mvn deploy -DskipTests
@@ -50,5 +58,7 @@ jobs:
           prerelease: false
           files: |
             target/*.jar
+            target/*-sources.jar
+            target/*-javadoc.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
