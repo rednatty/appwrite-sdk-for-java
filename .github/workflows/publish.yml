@@ -37,10 +37,22 @@ jobs:
 
       - name: Get Version
         id: get_version
-        run: echo "version=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)" >> $GITHUB_OUTPUT
+        run: |
+          VERSION=$(mvn help:evaluate -Dexpression=project.version -q -DforceStdout)
+          if [[ $VERSION == *"SNAPSHOT"* ]]; then
+            echo "Error: Cannot release SNAPSHOT version"
+            exit 1
+          fi
+          echo "version=$VERSION" >> $GITHUB_OUTPUT
 
       - name: Build with Maven
         run: mvn -B clean package -DskipTests --file pom.xml
+
+      - name: Upload Artifacts
+        uses: actions/upload-artifact@v4
+        with:
+          name: Artifacts
+          path: target/*.jar
 
       - name: Configure Maven settings
         run: |
@@ -60,8 +72,6 @@ jobs:
           draft: false
           prerelease: false
           files: |
-            target/*.jar
-            target/*-sources.jar
-            target/*-javadoc.jar
+            target/sdk-for-java-*.jar
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
