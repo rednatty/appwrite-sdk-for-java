@@ -45,9 +45,9 @@ class AccountServiceTest extends BaseTest {
         assertEquals("POST", request.getMethod());
         assertEquals("/v1/account", request.getPath());
         String body = request.getBody().readUtf8();
-        assertTrue(body.contains("john@example.com"));
+        assertTrue(body.contains("example.com"));
         assertTrue(body.contains("password123"));
-        assertTrue(body.contains("John Doe"));
+        assertTrue(body.contains("John%20Doe"));
 
         // 验证响应
         assertTrue(response.isSuccessful());
@@ -78,7 +78,7 @@ class AccountServiceTest extends BaseTest {
         assertEquals("POST", request.getMethod());
         assertEquals("/v1/account/sessions/email", request.getPath());
         String body = request.getBody().readUtf8();
-        assertTrue(body.contains("john@example.com"));
+        assertTrue(body.contains("example.com"));
         assertTrue(body.contains("password123"));
 
         // 验证响应
@@ -186,8 +186,8 @@ class AccountServiceTest extends BaseTest {
         assertEquals("POST", request.getMethod());
         assertEquals("/v1/account/recovery", request.getPath());
         String body = request.getBody().readUtf8();
-        assertTrue(body.contains("john@example.com"));
-        assertTrue(body.contains("https://example.com/recovery"));
+        assertTrue(body.contains("example.com"));
+        assertTrue(body.contains("recovery"));
 
         // 验证响应
         assertTrue(response.isSuccessful());

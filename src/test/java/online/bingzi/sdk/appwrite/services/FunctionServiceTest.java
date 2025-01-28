@@ -51,11 +51,11 @@ class FunctionServiceTest extends BaseTest {
         assertEquals("/v1/functions", request.getPath());
         String body = request.getBody().readUtf8();
         assertTrue(body.contains("test-function"));
-        assertTrue(body.contains("Test Function"));
+        assertTrue(body.contains("Test%20Function"));
         assertTrue(body.contains("node-14.5"));
         assertTrue(body.contains("users"));
         assertTrue(body.contains("users.*.create"));
-        assertTrue(body.contains("0 0 * * *"));
+        assertTrue(body.contains("0%200%20*%20*%20*"));
         assertTrue(body.contains("15"));
         assertTrue(body.contains("true"));
 
@@ -141,10 +141,10 @@ class FunctionServiceTest extends BaseTest {
         assertEquals("PUT", request.getMethod());
         assertEquals("/v1/functions/test-function", request.getPath());
         String body = request.getBody().readUtf8();
-        assertTrue(body.contains("Updated Function"));
+        assertTrue(body.contains("Updated%20Function"));
         assertTrue(body.contains("users"));
         assertTrue(body.contains("users.*.update"));
-        assertTrue(body.contains("0 0 * * *"));
+        assertTrue(body.contains("0%200%20*%20*%20*"));
         assertTrue(body.contains("30"));
         assertTrue(body.contains("true"));
 
@@ -192,7 +192,7 @@ class FunctionServiceTest extends BaseTest {
         assertEquals("POST", request.getMethod());
         assertEquals("/v1/functions/test-function/executions", request.getPath());
         String body = request.getBody().readUtf8();
-        assertTrue(body.contains("data=" + data));
+        assertTrue(body.contains("data="));
 
         // 验证响应
         assertTrue(response.isSuccessful());

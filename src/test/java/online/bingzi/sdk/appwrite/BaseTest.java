@@ -17,11 +17,14 @@ public class BaseTest {
     protected Client client;
 
     @BeforeEach
-    void setUp() {
+    void setUp() throws IOException {
+        mockWebServer = new MockWebServer();
+        mockWebServer.start();
         client = new Client()
-                .setEndpoint("test-endpoint")
+                .setEndpoint(mockWebServer.url("v1/").toString())
                 .setProject("test-project")
                 .setKey("test-key");
+
     }
 
     @AfterEach

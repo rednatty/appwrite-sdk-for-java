@@ -1,11 +1,16 @@
 {
-    "$id": "5e5ea5c16897e",
-    "$createdAt": "2020-10-15T06:38:00.000Z",
-    "$updatedAt": "2020-10-15T06:38:00.000Z",
-    "$collectionId": "5e5ea5c16897e",
-    "$databaseId": "5e5ea5c16897e",
-    "$permissions": ["read", "write"],
+  "$id": "5e5ea5c16897e",
+  "$createdAt": "2020-10-15T06:38:00.000Z",
+  "$updatedAt": "2020-10-15T06:38:00.000Z",
+  "$collectionId": "5e5ea5c16897e",
+  "$databaseId": "5e5ea5c16897e",
+  "$permissions": [
+    "read",
+    "write"
+  ],
+  "data": {
     "name": "John Doe",
     "age": 30,
     "email": "john@example.com"
+  }
 } 

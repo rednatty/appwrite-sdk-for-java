@@ -69,7 +69,7 @@ class StorageServiceTest {
         assertEquals("/v1/storage/buckets", request.getPath());
         String body = request.getBody().readUtf8();
         assertTrue(body.contains("test-bucket"));
-        assertTrue(body.contains("Test Bucket"));
+        assertTrue(body.contains("Test%20Bucket"));
         assertTrue(body.contains("read"));
         assertTrue(body.contains("write"));
         assertTrue(body.contains("30000000"));
