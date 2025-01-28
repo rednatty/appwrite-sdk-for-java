@@ -5,12 +5,16 @@ target/
 
 ### IntelliJ IDEA ###
 .idea
-.idea/libraries/
-.idea/**
-
 *.iws
 *.iml
 *.ipr
+out/
+### gradle ###
+.gradle
+build/
+!gradle/wrapper/gradle-wrapper.jar
+!**/src/main/**
+!**/src/test/**
 
 ### Eclipse ###
 .apt_generated

@@ -151,9 +151,7 @@ accountService.get().enqueue(new Callback<Account>() {
     public void onResponse(Call<Account> call, Response<Account> response) {
         Account account = response.body();
         System.out.println("Current user: " + account.getName());
-    }
-
-    @Override
+    }@Override
     public void onFailure(Call<Account> call, Throwable t) {
         System.err.println("Error: " + t.getMessage());
     }
@@ -166,9 +164,7 @@ databaseService.listDocuments("collection-id").enqueue(new Callback<List<Documen
     public void onResponse(Call<List<Document>> call, Response<List<Document>> response) {
         List<Document> documents = response.body();
         documents.forEach(doc -> System.out.println(doc.getId()));
-    }
-
-    @Override
+    }@Override
     public void onFailure(Call<List<Document>> call, Throwable t) {
         System.err.println("Error: " + t.getMessage());
     }

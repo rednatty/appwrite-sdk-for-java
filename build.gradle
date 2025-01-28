@@ -1,14 +1,15 @@
 plugins {
     id 'java'
     id 'jacoco'
-    id 'maven-publish'
+    //id 'maven-publish'
+    id "com.diffplug.spotless" version "7.0.2"
 }
 
-group = 'online.bingzi'
+group = 'lt.xnatty'
 version = '0.9'
 java {
-    sourceCompatibility JavaVersion.VERSION_1_8
-    targetCompatibility JavaVersion.VERSION_1_8
+    sourceCompatibility JavaVersion.VERSION_21
+    targetCompatibility JavaVersion.VERSION_21
 }
 
 repositories {
@@ -16,19 +17,14 @@ repositories {
 }
 
 dependencies {
-    // Retrofit
-    implementation 'com.squareup.retrofit2:retrofit:2.9.0'
-    implementation 'com.squareup.retrofit2:converter-gson:2.9.0'
+    implementation 'com.squareup.retrofit2:retrofit:2.11.0'
+    implementation 'com.squareup.retrofit2:converter-gson:2.11.0'
+    implementation 'com.squareup.okhttp3:okhttp:4.12.0'
 
-    // OkHttp
-    implementation 'com.squareup.okhttp3:okhttp:4.11.0'
-
-    // Testing dependencies
     testImplementation 'org.junit.jupiter:junit-jupiter:5.10.0'
     testImplementation 'org.mockito:mockito-core:5.5.0'
     testImplementation 'org.mockito:mockito-junit-jupiter:5.5.0'
-    testImplementation 'com.squareup.okhttp3:mockwebserver:4.11.0'
-    compileOnly 'org.projectlombok:lombok:1.18.36'
+    testImplementation 'com.squareup.okhttp3:mockwebserver:4.12.0'
 }
 
 test {
@@ -45,11 +41,29 @@ jacocoTestReport {
     }
 }
 
-publishing {
-    publications {
-        mavenJava(MavenPublication) {
-            from components.java
-        }
+//publishing {
+//    publications {
+//        mavenJava(MavenPublication) {
+//            from components.java
+//        }
+//    }
+//}
+
+spotless {
+    java {
+        targetExclude('build/generated/**')
+        targetExclude('.github/**')
+        palantirJavaFormat('2.38.0')
+        toggleOffOn()
+        removeUnusedImports()
+        trimTrailingWhitespace()
+        endWithNewline()
+    }
+}
+
+gradle.projectsEvaluated {
+    tasks.withType(JavaCompile) {
+        options.compilerArgs += ["-Xlint:deprecation"]
     }
 }
 
