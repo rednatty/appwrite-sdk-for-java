@@ -1,7 +1,5 @@
 # Appwrite SDK for Java
 
-English | [简体中文](README_zh.md)
-
 A Java SDK for interacting with Appwrite backend services. This SDK provides a simple and intuitive API that enables developers to easily integrate Appwrite services into their Java applications.
 
 ## Features
@@ -43,96 +41,12 @@ A Java SDK for interacting with Appwrite backend services. This SDK provides a s
 
 ## Tech Stack
 
-- Java 8
 - Retrofit 2 (Network Requests)
 - OkHttp (HTTP Client)
 - Gson (JSON Processing)
 
-## Dependencies
-
-```xml
-<dependencies>
-    <!-- Retrofit -->
-    <dependency>
-        <groupId>com.squareup.retrofit2</groupId>
-        <artifactId>retrofit</artifactId>
-        <version>2.9.0</version>
-    </dependency>
-    
-    <!-- Gson Converter -->
-    <dependency>
-        <groupId>com.squareup.retrofit2</groupId>
-        <artifactId>converter-gson</artifactId>
-        <version>2.9.0</version>
-    </dependency>
-    
-    <!-- OkHttp -->
-    <dependency>
-        <groupId>com.squareup.okhttp3</groupId>
-        <artifactId>okhttp</artifactId>
-        <version>4.9.1</version>
-    </dependency>
-</dependencies>
-```
-
 ## Quick Start
-
-1. Add dependencies to your project
-
-For Maven, add the following to your `pom.xml`:
-
-```xml
-
-<repositories>
-  <repository>
-    <id>github</id>
-    <url>https://maven.pkg.github.com/BingZi-233/sdk-for-java</url>
-  </repository>
-</repositories>
-
-<dependencies>
-<dependency>
-  <groupId>online.bingzi</groupId>
-  <artifactId>sdk-for-java</artifactId>
-  <version>{latest-version}</version>
-</dependency>
-</dependencies>
-```
-
-Also add authentication in your Maven `settings.xml`:
-
-```xml
-
-<servers>
-  <server>
-    <id>github</id>
-    <username>YOUR_GITHUB_USERNAME</username>
-    <password>YOUR_GITHUB_TOKEN</password>
-  </server>
-</servers>
-```
-
-Note: Generate a GitHub token with `read:packages` scope.
-
-For Gradle, add the following to your `build.gradle`:
-
-```groovy
-repositories {
-  maven {
-    url = uri("https://maven.pkg.github.com/BingZi-233/sdk-for-java")
-    credentials {
-      username = project.findProperty("gpr.user") ?: System.getenv("USERNAME")
-      password = project.findProperty("gpr.key") ?: System.getenv("TOKEN")
-    }
-  }
-}
-
-dependencies {
-  implementation 'online.bingzi:sdk-for-java:{latest-version}'
-}
-```
-
-2. Create SDK client instance:
+1. Create SDK client instance:
 
 ```java
 AppwriteClient client = new AppwriteClient()
@@ -141,7 +55,7 @@ AppwriteClient client = new AppwriteClient()
     .setKey("your-api-key");
 ```
 
-3. Use services:
+2. Use services:
 
 ```java
 // Account Service Example
@@ -169,92 +83,6 @@ databaseService.listDocuments("collection-id").enqueue(new Callback<List<Documen
         System.err.println("Error: " + t.getMessage());
     }
 });
-```
-
-## Test Coverage
-
-The project uses JUnit 5 for unit testing and JaCoCo for code coverage analysis.
-
-Completed test modules:
-- [x] Account Service Tests
-  - User Registration/Login
-  - Account Information Management
-  - Session Management
-  - Preferences Management
-
-- [x] Team Service Tests
-  - Team CRUD Operations
-  - Member Management
-  - Preferences Management
-
-- [x] Database Service Tests
-  - Database Management
-  - Collection Operations
-  - Document CRUD
-  - Query Tests
-
-- [x] Storage Service Tests
-  - Bucket Management
-  - File Operations
-  - Permission Tests
-
-- [x] Function Service Tests
-  - Function Management
-  - Deployment Tests
-  - Execution Tests
-  - Variable Management
-
-Run tests:
-```bash
-mvn test
-```
-
-View reports:
-- Test Reports: `target/surefire-reports/`
-- Coverage Reports: `target/site/jacoco/`
-
-## Development Guidelines
-
-- Follow SOLID Principles
-- Apply DRY (Don't Repeat Yourself)
-- Follow KISS (Keep It Simple, Stupid)
-- Follow YAGNI (You Aren't Gonna Need It)
-- Follow OWASP Security Best Practices
-
-## Project Structure
-
-```
-sdk-for-java/
-├── src/
-│   ├── main/java/online/bingzi/sdk/appwrite/
-│   │   ├── models/          # Data Models
-│   │   │   ├── Account.java
-│   │   │   ├── Team.java
-│   │   │   ├── Database.java
-│   │   │   ├── Document.java
-│   │   │   ├── File.java
-│   │   │   └── Function.java
-│   │   ├── services/        # Service Interfaces
-│   │   │   ├── AccountService.java
-│   │   │   ├── TeamService.java
-│   │   │   ├── DatabaseService.java
-│   │   │   ├── StorageService.java
-│   │   │   └── FunctionService.java
-│   │   └── Client.java      # SDK Client
-│   └── test/
-│       ├── java/.../services/   # Service Tests
-│       │   ├── AccountServiceTest.java
-│       │   ├── TeamServiceTest.java
-│       │   ├── DatabaseServiceTest.java
-│       │   ├── StorageServiceTest.java
-│       │   └── FunctionServiceTest.java
-│       └── resources/
-│           └── json/        # Test Data
-│               ├── account.json
-│               ├── team.json
-│               ├── database.json
-│               └── function.json
-└── pom.xml                  # Project Configuration
 ```
 
 ## Contributing
